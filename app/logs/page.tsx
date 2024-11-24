@@ -5,9 +5,13 @@ async function GetLogsServerAction(formData: FormData) {
     // Get logs from server
 
     const webserver = formData.get('webserver');
-    if(webserver !== 'nginx' && webserver !== 'apache') {
+    if(webserver && webserver !== 'nginx' && webserver !== 'apache') {
         throw new Error('Not a valid webserver system, please stop to trying to hack us.');
     }
+    if(!webserver){
+        throw new Error('Please select a webserver system.');
+    }
+
     if(webserver === "apache"){
         // Get logs from apache server
         exec('cat /var/log/apache2/access.log', (err: Error | null, stdout: string) => {
