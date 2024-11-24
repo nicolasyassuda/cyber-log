@@ -1,8 +1,6 @@
 import {exec} from 'child_process';
 
 async function GetLogsServerAction(formData: FormData) {
-    "use server"
-    // Get logs from server
 
     const webserver = formData.get('webserver');
     if(webserver && webserver !== 'nginx' && webserver !== 'apache') {
@@ -14,33 +12,39 @@ async function GetLogsServerAction(formData: FormData) {
 
     if(webserver === "apache"){
         // Get logs from apache server
-        exec('cat /var/log/apache2/access.log', (err: Error | null, stdout: string) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(stdout);
-            // return stdout;
-        });
+        // exec('cat /var/log/apache2/access.log', (err: Error | null, stdout: string) => {
+        //     if (err) {
+        //         console.error(err);
+        //         return;
+        //     }
+        //     return stdout;
+        // });
+
+        return "teste"
     }else{
         // Get logs from nginx server
-        exec('cat /etc/sudoers', (err: Error | null, stdout: string) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log(stdout);
-            // return stdout;
-        });
+        // exec('cat /etc/sudoers', (err: Error | null, stdout: string) => {
+        //     if (err) {
+        //         console.error(err);
+        //         return;
+        //     }
+        //     return stdout;
+        // });
+        return "teste"
     }
 
 }
 
 export default function Logs() {
+    async function handleSubmit(formData: FormData) {
+        "use server"
+        const result = await GetLogsServerAction(formData);
+        console.log(result);
+    }
     return (
         <main className="flex justify-start items-start w-full px-16 py-16">
             <section className="flex flex-col gap-y-4">
-                <form className="flex flex-col gap-y-4" action={GetLogsServerAction}>
+                <form className="flex flex-col gap-y-4" action={handleSubmit}>
                     <h2 className="text-5xl text-left font-extrabold text-cyber-green">
                         Your Logs
                     </h2>
