@@ -11,7 +11,7 @@ async function GetLogsServerAction(formData: FormData) {
     console.log(webserver);
     if(webserver === "apache"){
         // Get logs from apache server
-        exec('cat /var/log/apache2/access.log', (err: any, stdout: any) => {
+        exec('cat /var/log/apache2/access.log', (err: Error | null, stdout: string) => {
             if (err) {
                 console.error(err);
                 return;
@@ -20,7 +20,7 @@ async function GetLogsServerAction(formData: FormData) {
         });
     }else{
         // Get logs from nginx server
-        exec('cat /var/log/nginx/access.log', (err: any, stdout: any) => {
+        exec('cat /var/log/nginx/access.log', (err: Error | null, stdout: string) => {
             if (err) {
                 console.error(err);
                 return;
