@@ -1,5 +1,4 @@
-import LinkFocus from "../components/link-focus";
-import Image from "next/image";
+import {exec} from 'child_process';
 
 async function GetLogsServerAction(formData: FormData) {
     "use server"
@@ -12,9 +11,16 @@ async function GetLogsServerAction(formData: FormData) {
     console.log(webserver);
     if(webserver === "apache"){
         // Get logs from apache server
-
-        const { exec } = require('child_process');
-        exec('cat /var/log/apache2/access.log', (err: any, stdout: any, stderr: any) => {
+        exec('cat /var/log/apache2/access.log', (err: any, stdout: any) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log(stdout);
+        });
+    }else{
+        // Get logs from nginx server
+        exec('cat /var/log/nginx/access.log', (err: any, stdout: any) => {
             if (err) {
                 console.error(err);
                 return;
@@ -22,13 +28,7 @@ async function GetLogsServerAction(formData: FormData) {
             console.log(stdout);
         });
     }
-    
-    const fs = require('fs');
-    const path = require('path');
-    const logsPath = path.join(process.cwd(), 'logs');
-    console.log(logsPath);
-    const files = fs.readdirSync(logsPath);
-    console.log(files);
+
 }
 
 export default function Logs() {

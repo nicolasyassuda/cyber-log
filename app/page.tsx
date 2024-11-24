@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import LinkFocus from "./components/link-focus";
 
 export default function Home() {
