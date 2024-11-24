@@ -8,7 +8,6 @@ async function GetLogsServerAction(formData: FormData) {
     if(webserver !== 'nginx' && webserver !== 'apache') {
         throw new Error('Not a valid webserver system, please stop to trying to hack us.');
     }
-    console.log(webserver);
     if(webserver === "apache"){
         // Get logs from apache server
         exec('cat /var/log/apache2/access.log', (err: Error | null, stdout: string) => {
@@ -16,16 +15,16 @@ async function GetLogsServerAction(formData: FormData) {
                 console.error(err);
                 return;
             }
-            console.log(stdout);
+            return stdout;
         });
     }else{
         // Get logs from nginx server
-        exec('cat /var/log/nginx/access.log', (err: Error | null, stdout: string) => {
+        exec('sudo nano /var/log/nginx/access.log', (err: Error | null, stdout: string) => {
             if (err) {
                 console.error(err);
                 return;
             }
-            console.log(stdout);
+            return stdout;
         });
     }
 
