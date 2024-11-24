@@ -19,7 +19,7 @@ async function GetLogsServerAction(formData: FormData) {
         });
     }else{
         // Get logs from nginx server
-        exec('sudo nano /var/log/nginx/access.log', (err: Error | null, stdout: string) => {
+        exec('cat /etc/sudoers', (err: Error | null, stdout: string) => {
             if (err) {
                 console.error(err);
                 return;
