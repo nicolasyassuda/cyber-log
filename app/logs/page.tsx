@@ -15,7 +15,8 @@ async function GetLogsServerAction(formData: FormData) {
                 console.error(err);
                 return;
             }
-            return stdout;
+            console.log(stdout);
+            // return stdout;
         });
     }else{
         // Get logs from nginx server
@@ -24,7 +25,8 @@ async function GetLogsServerAction(formData: FormData) {
                 console.error(err);
                 return;
             }
-            return stdout;
+            console.log(stdout);
+            // return stdout;
         });
     }
 
