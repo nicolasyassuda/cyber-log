@@ -38,6 +38,7 @@ Com o aumento de ataques direcionados a aplicações web, como **tentativas de e
 - Basta clonar este repositorio em seu servidor Linux.
 - E roda o script start_configuration.sh.
   - `sudo bash ./start_configuration.sh`
+  - Segue o codigo SHELL que está dentro do arquivo para analise de possiveis vulnerabilidade (acredito ter tomado bastante cuidado na hora de fazer o shell porem vai que).
  ```
 #!/bin/bash
 
