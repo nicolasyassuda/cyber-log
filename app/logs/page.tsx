@@ -1,4 +1,4 @@
-import { defineSystemForFirstTime, deleteExistentLogs, getLogs, reloadLogs } from '@/lib/logs/logs';
+import { getLogs, reloadLogs } from '@/lib/logs/logs';
 import { exec } from 'child_process';
 import { LogModel } from '@/models/log-model';
 import { revalidatePath } from 'next/cache';

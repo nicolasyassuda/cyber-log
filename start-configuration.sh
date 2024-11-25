@@ -40,11 +40,6 @@ if ! command -v node &> /dev/null || ! command -v npm &> /dev/null; then
   sudo apt install -y nodejs npm
 fi
 
-# Permissões para o diretório atual
-echo "Configurando permissões para o diretório atual ($CURRENT_DIR)..."
-sudo chown -R $USERNAME:logaccess $CURRENT_DIR
-sudo chmod -R 750 $CURRENT_DIR
-
 # Configuração do npm para o usuário
 echo "Configurando o npm para o usuário $USERNAME..."
 sudo -u $USERNAME mkdir -p /home/$USERNAME/.npm-global
