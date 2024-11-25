@@ -40,9 +40,6 @@ export default function RootLayout({
                 <LinkFocus href="/logs">
                   Logs
                 </LinkFocus>
-                <LinkFocus href="/tutorial">
-                  Tutorial
-                </LinkFocus>
               </nav>
             </div>
           </header>
