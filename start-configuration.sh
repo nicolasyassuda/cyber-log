@@ -2,7 +2,6 @@
 
 USERNAME="cyber-log"
 SERVICE_NAME="cyberlog.service"
-CURRENT_DIR=$(pwd)
 SERVICE_PATH="/etc/systemd/system/$SERVICE_NAME"
 
 APACHE_LOG_DIR="/var/log/apache2"
@@ -12,11 +11,11 @@ NGINX_LOG_DIR="/var/log/nginx"
 echo "Criando usuário $USERNAME..."
 sudo useradd -m -s /bin/bash $USERNAME
 
-cd /home/cyber-log/
+# Clonar o repositório
+echo "Clonando repositório..."
+sudo -u $USERNAME git clone https://github.com/nicolasyassuda/cyber-log /home/$USERNAME/cyber-log
 
-git clone https://github.com/nicolasyassuda/cyber-log
-
-# Grupo para logs
+# Configuração de permissões de log
 echo "Configurando permissões de acesso aos logs..."
 sudo groupadd -f logaccess
 sudo usermod -aG logaccess $USERNAME
@@ -44,11 +43,11 @@ fi
 echo "Configurando o npm para o usuário $USERNAME..."
 sudo -u $USERNAME mkdir -p /home/$USERNAME/.npm-global
 sudo -u $USERNAME npm config set prefix '/home/$USERNAME/.npm-global'
-echo "export PATH=/home/$USERNAME/.npm-global/bin:\$PATH" >> /home/$USERNAME/.bashrc
+echo "export PATH=/home/$USERNAME/.npm-global/bin:\$PATH" | sudo tee -a /home/$USERNAME/.bashrc
 
 # Build da aplicação
 echo "Executando 'npm run build'..."
-sudo bash -c "cd /home/$USERNAME/cyber-log && npm install && npm run build"
+sudo -u $USERNAME bash -c "cd /home/$USERNAME/cyber-log && npm install && npm run build"
 
 # Criação do arquivo de serviço systemd
 echo "Criando o arquivo de serviço $SERVICE_NAME em $SERVICE_PATH..."
@@ -59,7 +58,7 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/npm start
-WorkingDirectory=/home/cyber-log/cyber-log
+WorkingDirectory=/home/$USERNAME/cyber-log
 Restart=always
 User=$USERNAME
 Group=logaccess
